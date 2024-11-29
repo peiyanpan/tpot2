@@ -6,6 +6,8 @@ Add the new feature of allowing users to specify customized initial pipeline pop
 
 ## Where should the reviewer start?
 
+First, I added a parameter customized_initial_population to TPOTEstimator to represent a population that has been initialized and in which variables can be initialized. Second, I add these customized_initial_population to the section in BaseEvolver for newly generated populations.
+
 ## How should this PR be tested?
 
 The test code
@@ -74,7 +76,7 @@ print(scorer(est, X_test, y_test))
 
 ## Any background context you want to provide?
 
-Under this version, users can specify well-defined initial pipeline population in string format by themselves. This update has the potential to enhance the algorithm's performance and reduce evolutionary time.
+In the current version, the main consideration is SequentialPipeline type pipeline, so there is a new operation set_node in tpot2/config/get_configspace.py to initialize each node in the SequentialPipeline, other versions of the functionality to be explored.
 
 ## What are the relevant issues?
 
