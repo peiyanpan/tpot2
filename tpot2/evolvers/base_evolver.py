@@ -442,8 +442,8 @@ class BaseEvolver():
                 initial_population = [next(self.individual_generator) for _ in range(self.cur_population_size - init_population_size)]
                 initial_population = customized_initial_population + initial_population
             # initial_population = [next(self.individual_generator) for _ in range(self.cur_population_size)]
-            for individual in initial_population:
-                print(individual.unique_id())
+            # for individual in initial_population:
+            #     print(individual.unique_id())
             self.population.add_to_population(initial_population, self.rng)
             self.population.update_column(self.population.population, column_names="Generation", data=self.generation)
 

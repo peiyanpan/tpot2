@@ -10,7 +10,7 @@ First, I added a parameter customized_initial_population to TPOTEstimator to rep
 
 ## How should this PR be tested?
 
-The test code
+The test code is at tpot2/tests/test_customized_initial_population.py:
 
 ```
 import tpot2
@@ -76,13 +76,32 @@ print(scorer(est, X_test, y_test))
 
 ## Any background context you want to provide?
 
-In the current version, the main consideration is SequentialPipeline type pipeline, so there is a new operation set_node in tpot2/config/get_configspace.py to initialize each node in the SequentialPipeline, other versions of the functionality to be explored.
+Under this version, users can specify well-defined initial pipeline population in SequentialPipeline type pipeline. This update has the potential to enhance the algorithm's performance and reduce evolutionary time.
+
+Several Tips:
+
+1. These SequentialPipeline pipelines can be obtained:
+
+Referencing the examples in customized_initial_population.py and modifying them according to TPOT2's config_dict.
+
+2. We consider the relationship between #customized initial pipelines and #population as follows:
+
+"check if #customized initial pipelines <= #population"
+```
+init_population_size = len(customized_initial_population)
+if self.cur_population_size <= init_population_size:
+    initial_population = customized_initial_population[:self.cur_population_size]
+else:
+    initial_population = [next(self.individual_generator) for _ in range(self.cur_population_size - init_population_size)]
+    initial_population = customized_initial_population + initial_population
+```
+3. The current version is only applicable to solve the problem where search_spaces is linear and the initialized pipeline is of type SequentialPipeline. We will continue to refine the scenario where search_spaces is graph and the pipeline is of type GraphPipeline in the near future if you think our approach is appropriate.
+
 
 ## What are the relevant issues?
 
 [issue-61](https://github.com/EpistasisLab/tpot2/issues/61)
 
-## Screenshots (if appropriate)
+## Main Contributors
 
-
-
+@peiyanpan @t-harden

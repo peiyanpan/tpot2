@@ -760,6 +760,8 @@ class TPOTEstimator(BaseEstimator):
                                             crossover_then_mutate_probability= self.crossover_then_mutate_probability,
 
                                             rng=self.rng,
+
+                                            customized_initial_population=self.customized_initial_population,
                                             )
 
 
